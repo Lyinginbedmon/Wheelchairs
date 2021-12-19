@@ -42,23 +42,23 @@ public class BipedArmorLayerMixin
 					switch(type)
 					{
 						case ARM_LEFT:
-							modelIn.bipedLeftArm.showModel = false;
+							modelIn.leftArm.visible = false;
 							break;
 						case ARM_RIGHT:
-							modelIn.bipedRightArm.showModel = false;
+							modelIn.rightArm.visible = false;
 							break;
 						case HEAD:
-							modelIn.bipedHead.showModel = false;
-							modelIn.bipedHeadwear.showModel = false;
+							modelIn.head.visible = false;
+							modelIn.hat.visible = false;
 							break;
 						case LEG_LEFT:
-							modelIn.bipedLeftLeg.showModel = false;
+							modelIn.leftLeg.visible = false;
 							break;
 						case LEG_RIGHT:
-							modelIn.bipedRightLeg.showModel = false;
+							modelIn.rightLeg.visible = false;
 							break;
 						case TORSO:
-							modelIn.bipedBody.showModel = false;
+							modelIn.body.visible = false;
 							break;
 					}
 	}

@@ -9,14 +9,15 @@ import com.lying.wheelchairs.item.bauble.ItemWheelchair;
 import com.lying.wheelchairs.reference.Reference;
 
 import net.minecraft.block.WoodType;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.IDyeableArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemTier;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
-public class VEItems
+public class WItems
 {
 	private static final List<Item> ITEMS = Lists.newArrayList();
 	
@@ -42,7 +43,7 @@ public class VEItems
 	
 	public static Item register(String nameIn, Item itemIn)
 	{
-		itemIn.setRegistryName(Reference.ModInfo.MOD_PREFIX+nameIn);
+		itemIn.setRegistryName(new ResourceLocation(Reference.ModInfo.MOD_ID, nameIn));
 		ITEMS.add(itemIn);
 		
 		if(itemIn instanceof IDyeableArmorItem)
@@ -53,6 +54,9 @@ public class VEItems
 	
     public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
     {
+    	IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
+    	registry.registerAll(ITEMS.toArray(new Item[0]));
+    	
     	ITEMS.forEach((item) -> 
     	{
     		if(item instanceof IEventListenerItem)

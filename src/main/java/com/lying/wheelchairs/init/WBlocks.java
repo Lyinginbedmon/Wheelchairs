@@ -15,12 +15,12 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @Mod.EventBusSubscriber(modid = Reference.ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
-public class VEBlocks
+public class WBlocks
 {
 	private static final List<Block> BLOCKS = new ArrayList<>();
 	
 	/* Blocks */
-	public static final Block WHEELCHAIR		= register("wheelchair_block", new BlockWheelchair(AbstractBlock.Properties.create(Material.WOOD)));
+	public static final Block WHEELCHAIR		= register("wheelchair_block", new BlockWheelchair(AbstractBlock.Properties.of(Material.WOOD)));
 	
 	public static Block register(String nameIn, Block blockIn)
 	{

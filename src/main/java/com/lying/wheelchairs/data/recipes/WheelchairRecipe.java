@@ -3,7 +3,7 @@ package com.lying.wheelchairs.data.recipes;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.lying.wheelchairs.init.VEItems;
+import com.lying.wheelchairs.init.WItems;
 import com.lying.wheelchairs.item.ItemWheel;
 import com.lying.wheelchairs.item.bauble.ItemWheelchair;
 import com.mojang.datafixers.util.Pair;
@@ -76,8 +76,8 @@ public class WheelchairRecipe extends SpecialRecipe
 			return false;
 		
 		// Identify if crafting grid contains any other items
-		for(int i=0; i<inv.getSizeInventory(); i++)
-			if(!inv.getStackInSlot(i).isEmpty())
+		for(int i=0; i<inv.getContainerSize(); i++)
+			if(!inv.getItem(i).isEmpty())
 			{
 				int x = i % inv.getWidth();
 				int y = Math.floorDiv(i, inv.getWidth());
@@ -94,7 +94,7 @@ public class WheelchairRecipe extends SpecialRecipe
 		return true;
 	}
 	
-	public ItemStack getCraftingResult(CraftingInventory inv)
+	public ItemStack assemble(CraftingInventory inv)
 	{
 		ItemStack slab = ItemStack.EMPTY;
 		ItemStack wool = ItemStack.EMPTY;
@@ -141,8 +141,8 @@ public class WheelchairRecipe extends SpecialRecipe
 			return ItemStack.EMPTY;
 		
 		// Identify if crafting grid contains any other items
-		for(int i=0; i<inv.getSizeInventory(); i++)
-			if(!inv.getStackInSlot(i).isEmpty())
+		for(int i=0; i<inv.getContainerSize(); i++)
+			if(!inv.getItem(i).isEmpty())
 			{
 				int x = i % inv.getWidth();
 				int y = Math.floorDiv(i, inv.getWidth());
@@ -165,10 +165,10 @@ public class WheelchairRecipe extends SpecialRecipe
 	
 	private ItemStack getStackAt(int column, int row, CraftingInventory inv)
 	{
-		return inv.getStackInSlot(row*inv.getWidth() + column);
+		return inv.getItem(row*inv.getWidth() + column);
 	}
 	
-	public boolean canFit(int width, int height)
+	public boolean canCraftInDimensions(int width, int height)
 	{
 		return width >= 3 && height >= 2;
 	}
@@ -180,14 +180,14 @@ public class WheelchairRecipe extends SpecialRecipe
 	
 	static
 	{
-		SLABS_TO_SEATS.put(Items.OAK_SLAB, VEItems.OAK_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.SPRUCE_SLAB, VEItems.SPRUCE_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.BIRCH_SLAB, VEItems.BIRCH_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.ACACIA_SLAB, VEItems.ACACIA_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.JUNGLE_SLAB, VEItems.JUNGLE_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.DARK_OAK_SLAB, VEItems.DARK_OAK_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.CRIMSON_SLAB, VEItems.CRIMSON_WHEELCHAIR);
-		SLABS_TO_SEATS.put(Items.WARPED_SLAB, VEItems.WARPED_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.OAK_SLAB, WItems.OAK_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.SPRUCE_SLAB, WItems.SPRUCE_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.BIRCH_SLAB, WItems.BIRCH_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.ACACIA_SLAB, WItems.ACACIA_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.JUNGLE_SLAB, WItems.JUNGLE_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.DARK_OAK_SLAB, WItems.DARK_OAK_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.CRIMSON_SLAB, WItems.CRIMSON_WHEELCHAIR);
+		SLABS_TO_SEATS.put(Items.WARPED_SLAB, WItems.WARPED_WHEELCHAIR);
 		
 		WOOL_TO_COLORS.put(Items.BLACK_WOOL, DyeColor.BLACK);
 		WOOL_TO_COLORS.put(Items.BLUE_WOOL, DyeColor.BLUE);

@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 
-public class VERecipeTypes
+public class WRecipeTypes
 {
 	public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event)
 	{

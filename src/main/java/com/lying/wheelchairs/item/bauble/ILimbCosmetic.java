@@ -2,15 +2,9 @@ package com.lying.wheelchairs.item.bauble;
 
 import java.util.EnumSet;
 
-import com.lying.wheelchairs.init.VEItems;
-
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
-import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
-import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 /**
  * Interface class which disables the rendering of certain biped parts when this item is worn by players in the curio slots.
@@ -30,24 +24,24 @@ public interface ILimbCosmetic
 	 */
 	public static boolean hasConflictingLimbs(PlayerEntity playerIn, LimbType typeIn, EquipmentSlotType slotIn)
 	{
-		ICuriosHelper helper = CuriosApi.getCuriosHelper();
-		if(helper.getCuriosHandler(playerIn).isPresent())
-		{
-			ICuriosItemHandler handler = helper.getCuriosHandler(playerIn).orElse(null);
-			for(ICurioStacksHandler stacks : handler.getCurios().values())
-				for(int i=0; i<stacks.getSlots(); i++)
-					if(stacks.getRenders().get(i))
-					{
-						ItemStack stack = stacks.getStacks().getStackInSlot(i);
-						if(!stack.isEmpty())
-							if(stackRenderingConflictsWith(stack, typeIn, slotIn))
-								return true;
-							else if(stack.getItem() == VEItems.COSTUME)
-								for(ItemStack component : ItemCostume.getComponents(stack))
-									if(stackRenderingConflictsWith(component, typeIn, slotIn))
-										return true;
-					}
-		}
+//		ICuriosHelper helper = CuriosApi.getCuriosHelper();
+//		if(helper.getCuriosHandler(playerIn).isPresent())
+//		{
+//			ICuriosItemHandler handler = helper.getCuriosHandler(playerIn).orElse(null);
+//			for(ICurioStacksHandler stacks : handler.getCurios().values())
+//				for(int i=0; i<stacks.getSlots(); i++)
+//					if(stacks.getRenders().get(i))
+//					{
+//						ItemStack stack = stacks.getStacks().getStackInSlot(i);
+//						if(!stack.isEmpty())
+//							if(stackRenderingConflictsWith(stack, typeIn, slotIn))
+//								return true;
+//							else if(stack.getItem() == WItems.COSTUME)
+//								for(ItemStack component : ItemCostume.getComponents(stack))
+//									if(stackRenderingConflictsWith(component, typeIn, slotIn))
+//										return true;
+//					}
+//		}
 		return false;
 	}
 	
@@ -67,25 +61,21 @@ public interface ILimbCosmetic
 	 */
 	public static boolean isWearingLimbsOfType(PlayerEntity playerIn, LimbType typeIn)
 	{
-		ICuriosHelper helper = CuriosApi.getCuriosHelper();
-		if(helper.getCuriosHandler(playerIn).isPresent())
-		{
-			ICuriosItemHandler handler = helper.getCuriosHandler(playerIn).orElse(null);
-			if(handler != null)
-				for(ICurioStacksHandler stacks : handler.getCurios().values())
-					for(int i=0; i<stacks.getSlots(); i++)
-						if(stacks.getRenders().get(i))
-						{
-							ItemStack stack = stacks.getStacks().getStackInSlot(i);
-							if(!stack.isEmpty())
-								if(isLimbOfType(stack, typeIn))
-									return true;
-								else if(stack.getItem() == VEItems.COSTUME)
-									for(ItemStack component : ItemCostume.getComponents(stack))
-										if(isLimbOfType(component, typeIn))
-											return true;
-						}
-		}
+//		ICuriosHelper helper = CuriosApi.getCuriosHelper();
+//		if(helper.getCuriosHandler(playerIn).isPresent())
+//		{
+//			ICuriosItemHandler handler = helper.getCuriosHandler(playerIn).orElse(null);
+//			if(handler != null)
+//				for(ICurioStacksHandler stacks : handler.getCurios().values())
+//					for(int i=0; i<stacks.getSlots(); i++)
+//						if(stacks.getRenders().get(i))
+//						{
+//							ItemStack stack = stacks.getStacks().getStackInSlot(i);
+//							if(!stack.isEmpty())
+//								if(isLimbOfType(stack, typeIn))
+//									return true;
+//						}
+//		}
 		return false;
 	}
 	

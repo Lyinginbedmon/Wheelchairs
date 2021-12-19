@@ -13,9 +13,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
-public abstract class ItemBauble extends Item implements ICurioItem
+public abstract class ItemBauble extends Item //implements ICurioItem
 {
 	public ItemBauble(Properties properties)
 	{
@@ -33,6 +32,6 @@ public abstract class ItemBauble extends Item implements ICurioItem
 	
 	public void addDescription(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags)
 	{
-		tooltip.add(new TranslationTextComponent("item."+Reference.ModInfo.MOD_ID+"."+getRegistryName().getPath()+".tooltip").modifyStyle((style) -> { return style.applyFormatting(TextFormatting.GRAY); }));
+		tooltip.add(new TranslationTextComponent("item."+Reference.ModInfo.MOD_ID+"."+getRegistryName().getPath()+".tooltip").withStyle(TextFormatting.GRAY));
 	}
 }

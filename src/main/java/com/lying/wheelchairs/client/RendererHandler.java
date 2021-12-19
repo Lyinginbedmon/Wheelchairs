@@ -1,9 +1,7 @@
 package com.lying.wheelchairs.client;
 
-import com.lying.wheelchairs.Wheelchairs;
-import com.lying.wheelchairs.config.ConfigVE;
 import com.lying.wheelchairs.client.renderer.tileentity.TileEntityWheelchairRenderer;
-import com.lying.wheelchairs.init.VETileEntities;
+import com.lying.wheelchairs.init.WTileEntities;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -17,12 +15,9 @@ public class RendererHandler
 	
 	public static void registerTileRenderers(ModelRegistryEvent event)
 	{
-		if(ConfigVE.GENERAL.verboseLogs())
-			VariousEquipment.log.info("Registering tile entity renderers");
-		
 		if(!registered)
 			registered = true;
 		
-		ClientRegistry.bindTileEntityRenderer(VETileEntities.WHEELCHAIR, TileEntityWheelchairRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(WTileEntities.WHEELCHAIR, TileEntityWheelchairRenderer::new);
 	}
 }

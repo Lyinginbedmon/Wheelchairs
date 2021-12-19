@@ -13,9 +13,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 @Mod.EventBusSubscriber(modid = Reference.ModInfo.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
-public class VETileEntities
+public class WTileEntities
 {
-	public static final TileEntityType<TileEntityWheelchair> WHEELCHAIR	= TileEntityType.Builder.create(TileEntityWheelchair::new, VEBlocks.WHEELCHAIR).build(null);
+	public static final TileEntityType<TileEntityWheelchair> WHEELCHAIR	= TileEntityType.Builder.of(TileEntityWheelchair::new, WBlocks.WHEELCHAIR).build(null);
 	
     @SubscribeEvent
 	public static void registerTiles(final RegistryEvent.Register<TileEntityType<?>> tileRegistryevent)

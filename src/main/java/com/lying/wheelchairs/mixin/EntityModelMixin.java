@@ -1,4 +1,4 @@
-package com.lying.variousequipment.mixin;
+package com.lying.wheelchairs.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

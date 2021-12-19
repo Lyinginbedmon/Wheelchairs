@@ -2,7 +2,7 @@ package com.lying.wheelchairs.tileentity;
 
 import javax.annotation.Nullable;
 
-import com.lying.wheelchairs.init.VETileEntities;
+import com.lying.wheelchairs.init.WTileEntities;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
@@ -22,21 +22,21 @@ public class TileEntityWheelchair extends TileEntity
 	
 	public TileEntityWheelchair()
 	{
-		super(VETileEntities.WHEELCHAIR);
+		super(WTileEntities.WHEELCHAIR);
 	}
 	
-	public CompoundNBT write(CompoundNBT compound)
+	public CompoundNBT save(CompoundNBT compound)
 	{
-		super.write(compound);
+		super.save(compound);
 		compound.putFloat("Rotation", this.yaw);
-		compound.put("Item", this.stack.write(new CompoundNBT()));
+		compound.put("Item", this.stack.save(new CompoundNBT()));
 		return compound;
 	}
 	
-	public void read(BlockState state, CompoundNBT nbt)
+	public void load(BlockState state, CompoundNBT nbt)
 	{
-		super.read(state, nbt);
-		setItemAndYaw(ItemStack.read(nbt.getCompound("Item")), nbt.getFloat("Rotation"));
+		super.load(state, nbt);
+		setItemAndYaw(ItemStack.of(nbt.getCompound("Item")), nbt.getFloat("Rotation"));
 	}
 	
 	public void setItem(ItemStack stackIn)
@@ -58,17 +58,17 @@ public class TileEntityWheelchair extends TileEntity
 	
 	public void markDirty()
 	{
-		super.markDirty();
-		if(getWorld() instanceof ServerWorld)
+		super.setChanged();
+		if(getLevel() instanceof ServerWorld)
 		{
-			getWorld().updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+			getLevel().updateNeighbourForOutputSignal(getBlockPos(), getBlockState().getBlock());
 			SUpdateTileEntityPacket packet = getUpdatePacket();
 			if(packet != null)
 			{
-				BlockPos pos = getPos();
-				((ServerChunkProvider)getWorld().getChunkProvider()).chunkManager
-						.getTrackingPlayers(new ChunkPos(pos), false)
-						.forEach(e -> e.connection.sendPacket(packet));
+				BlockPos pos = getBlockPos();
+				((ServerChunkProvider)getLevel().getChunkSource()).chunkMap
+						.getPlayers(new ChunkPos(pos), false)
+						.forEach(e -> e.connection.send(packet));
 			}
 		}
 	}
@@ -76,17 +76,17 @@ public class TileEntityWheelchair extends TileEntity
 	@Nullable
 	public SUpdateTileEntityPacket getUpdatePacket()
 	{
-		return new SUpdateTileEntityPacket(this.pos, -999, this.getUpdateTag());
+		return new SUpdateTileEntityPacket(this.getBlockPos(), -999, this.getUpdateTag());
 	}
 	
 	public CompoundNBT getUpdateTag()
 	{
-		return this.write(new CompoundNBT());
+		return this.save(new CompoundNBT());
 	}
 	
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet)
 	{
 		super.onDataPacket(net, packet);
-		this.read(getBlockState(), packet.getNbtCompound());
+		this.load(getBlockState(), packet.getTag());
 	}
 }

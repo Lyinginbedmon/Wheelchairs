@@ -1,6 +1,6 @@
 package com.lying.wheelchairs.client.renderer.tileentity;
 
-import com.lying.wheelchairs.init.VEItems;
+import com.lying.wheelchairs.init.WItems;
 import com.lying.wheelchairs.item.bauble.ItemWheelchair;
 import com.lying.wheelchairs.tileentity.TileEntityWheelchair;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -24,18 +24,18 @@ public class TileEntityWheelchairRenderer extends TileEntityRenderer<TileEntityW
 	{
 		ItemStack stack = tileEntityIn.getStack();
 		if(stack.isEmpty())
-			stack = new ItemStack(VEItems.OAK_WHEELCHAIR);
+			stack = new ItemStack(WItems.OAK_WHEELCHAIR);
 		
-		matrixStackIn.push();
+		matrixStackIn.pushPose();
 			matrixStackIn.translate(0.5D, 1.5D, 0.5D);
-			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180F));
-			matrixStackIn.push();
-				matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+			matrixStackIn.mulPose(Vector3f.XP.rotationDegrees(180F));
+			matrixStackIn.pushPose();
+				matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
 				if(stack.getItem() instanceof ItemWheelchair)
 					((ItemWheelchair)stack.getItem()).renderStaticItem(matrixStackIn, bufferIn, combinedLightIn, stack);
 				else
-					Minecraft.getInstance().getItemRenderer().renderItem(stack, TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
-			matrixStackIn.pop();
-		matrixStackIn.pop();
+					Minecraft.getInstance().getItemRenderer().renderStatic(stack, TransformType.FIXED, combinedLightIn, combinedOverlayIn, matrixStackIn, bufferIn);
+			matrixStackIn.popPose();
+		matrixStackIn.popPose();
 	}
 }

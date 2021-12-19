@@ -18,19 +18,19 @@ public class ModelUtils
 	/** Converts a given double from degrees to radians as a float */
 	public static float toRadians(double par1Double){ return (float)(Math.toRadians(par1Double)); }
 	
-	public static ModelRenderer freshRenderer(Model par1ModelBase){ return new ModelRenderer(par1ModelBase).setTextureSize(par1ModelBase.textureWidth,par1ModelBase.textureHeight); }
+	public static ModelRenderer freshRenderer(Model par1ModelBase){ return new ModelRenderer(par1ModelBase).setTexSize(par1ModelBase.texWidth,par1ModelBase.texHeight); }
 	
 	public static ModelRenderer clonePosition(ModelRenderer fromModel, ModelRenderer toModel)
 	{
-		toModel.setRotationPoint(fromModel.rotationPointX, fromModel.rotationPointY, fromModel.rotationPointZ);
+		toModel.setPos(fromModel.x, fromModel.y, fromModel.z);
 		return toModel;
 	}
 	
 	public static ModelRenderer cloneRotation(ModelRenderer fromModel, ModelRenderer toModel)
 	{
-		toModel.rotateAngleX = fromModel.rotateAngleX;
-		toModel.rotateAngleY = fromModel.rotateAngleY;
-		toModel.rotateAngleZ = fromModel.rotateAngleZ;
+		toModel.xRot = fromModel.xRot;
+		toModel.yRot = fromModel.yRot;
+		toModel.zRot = fromModel.zRot;
 		return toModel;
 	}
 	
@@ -39,21 +39,21 @@ public class ModelUtils
 //		Vec3d newVec = shift.rotatePitch((float)angle.x).rotateYaw((float)angle.y);
 		Vector3d newVec = new Vector3d(0,0,0);
 		
-		par1ModelRenderer.rotationPointX += newVec.x;
-		par1ModelRenderer.rotationPointY += newVec.y;
-		par1ModelRenderer.rotationPointZ += newVec.z;
+		par1ModelRenderer.x += newVec.x;
+		par1ModelRenderer.y += newVec.y;
+		par1ModelRenderer.z += newVec.z;
 		
 		return par1ModelRenderer;
 	}
 	
 	public static Vector3d getAngles(ModelRenderer par1ModelRenderer)
 	{
-		return new Vector3d(par1ModelRenderer.rotateAngleX, par1ModelRenderer.rotateAngleY, par1ModelRenderer.rotateAngleZ);
+		return new Vector3d(par1ModelRenderer.xRot, par1ModelRenderer.yRot, par1ModelRenderer.zRot);
 	}
 	
 	public static Vector3d getPosition(ModelRenderer par1ModelRenderer)
 	{
-		return new Vector3d(par1ModelRenderer.rotationPointX, par1ModelRenderer.rotationPointY, par1ModelRenderer.rotationPointZ);
+		return new Vector3d(par1ModelRenderer.x, par1ModelRenderer.y, par1ModelRenderer.z);
 	}
 }
 
