@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"package": "com.lying.wheelchairs.mixin",
+	"mixins":
+	[
+		
+	],
+	"client":
+	[
+		"PlayerRendererMixin",
+		"BipedArmorLayerMixin",
+		"BipedModelMixin",
+		"EntityModelMixin"
+	]
+}

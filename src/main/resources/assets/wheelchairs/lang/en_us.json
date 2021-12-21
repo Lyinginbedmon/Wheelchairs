@@ -19,5 +19,7 @@
 	"item.wheelchairs.warped_wheel": "Warped Wheel",
 	"block.wheelchairs.wheelchair_block": "Wheelchair",
 	"enum.wheelchairs.leg.left": "Left",
-	"enum.wheelchairs.leg.right": "Right"
+	"enum.wheelchairs.leg.right": "Right",
+	"gui.wheelchairs.wheelchair.wheel_left": " Left: %s",
+	"gui.wheelchairs.wheelchair.wheel_right": " Right: %s"
 }

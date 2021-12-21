@@ -1,6 +1,7 @@
 package com.lying.wheelchairs.item.bauble;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.google.common.collect.Lists;
@@ -56,6 +57,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmorItem
 {
@@ -73,7 +79,7 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 		WHEELCHAIRS.add(this);
 	}
 	
-//	public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack){ return true; }
+	public boolean canEquipFromUse(SlotContext slotContext, ItemStack stack){ return true; }
 	
 	public boolean canRender(String identifier, int index, LivingEntity living, ItemStack stack){ return !living.isInvisible(); }
 	
@@ -181,7 +187,7 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags)
+    public void appendHoverText(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags)
 	{
 		Pair<ItemStack, ItemStack> wheels = getWheelsFromItem(stack);
 		tooltip.add(new TranslationTextComponent("gui."+Reference.ModInfo.MOD_ID+".wheelchair.wheel_right", wheels.getFirst().getDisplayName()).withStyle(TextFormatting.GRAY));
@@ -302,15 +308,15 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 			
 			if(livingEntity.getType() == EntityType.PLAYER)
 			{
-//				PlayerEntity player = (PlayerEntity)livingEntity;
-//				ICuriosHelper helper = CuriosApi.getCuriosHelper();
-//				if(helper.getCuriosHandler(player).isPresent())
-//				{
-//					ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
-//					Optional<ICurioStacksHandler> stackHandler = handler.getStacksHandler(identifier);
-//					if(stackHandler.isPresent())
-//						stackHandler.get().getStacks().extractItem(index, stack.getCount(), false);
-//				}
+				PlayerEntity player = (PlayerEntity)livingEntity;
+				ICuriosHelper helper = CuriosApi.getCuriosHelper();
+				if(helper.getCuriosHandler(player).isPresent())
+				{
+					ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
+					Optional<ICurioStacksHandler> stackHandler = handler.getStacksHandler(identifier);
+					if(stackHandler.isPresent())
+						stackHandler.get().getStacks().extractItem(index, stack.getCount(), false);
+				}
 			}
 		}
 	}
@@ -344,18 +350,18 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 	
 	private static boolean hasVisibleWheelchair(PlayerEntity player)
 	{
-//		ICuriosHelper helper = CuriosApi.getCuriosHelper();
-//		if(helper.getCuriosHandler(player).isPresent())
-//		{
-//			ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
-//			for(ICurioStacksHandler curios : handler.getCurios().values())
-//				for(int slot=0; slot<curios.getStacks().getSlots(); slot++)
-//				{
-//					ItemStack visible = curios.getRenders().get(slot) ? curios.getStacks().getStackInSlot(slot) : ItemStack.EMPTY;
-//					if(!visible.isEmpty() && visible.getItem() instanceof ItemWheelchair)
-//						return true;
-//				}
-//		}
+		ICuriosHelper helper = CuriosApi.getCuriosHelper();
+		if(helper.getCuriosHandler(player).isPresent())
+		{
+			ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
+			for(ICurioStacksHandler curios : handler.getCurios().values())
+				for(int slot=0; slot<curios.getStacks().getSlots(); slot++)
+				{
+					ItemStack visible = curios.getRenders().get(slot) ? curios.getStacks().getStackInSlot(slot) : ItemStack.EMPTY;
+					if(!visible.isEmpty() && visible.getItem() instanceof ItemWheelchair)
+						return true;
+				}
+		}
 		return false;
 	}
 }

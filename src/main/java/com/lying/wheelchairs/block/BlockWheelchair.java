@@ -2,6 +2,7 @@ package com.lying.wheelchairs.block;
 
 import javax.annotation.Nullable;
 
+import com.lying.wheelchairs.data.WItemTags;
 import com.lying.wheelchairs.init.WTileEntities;
 import com.lying.wheelchairs.item.bauble.ItemWheelchair;
 import com.lying.wheelchairs.tileentity.TileEntityWheelchair;
@@ -9,6 +10,7 @@ import com.lying.wheelchairs.tileentity.TileEntityWheelchair;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.LivingEntity;
@@ -26,6 +28,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 
 public class BlockWheelchair extends ContainerBlock
 {
@@ -54,40 +60,39 @@ public class BlockWheelchair extends ContainerBlock
 		if(tile == null || tile.getStack().isEmpty() || !(tile.getStack().getItem() instanceof ItemWheelchair))
 			return ActionResultType.PASS;
 		
-//		int targetSlot = -1;
-//		ICuriosHelper helper = CuriosApi.getCuriosHelper();
-//		if(!helper.getCuriosHandler(player).isPresent())
-//			return ActionResultType.PASS;
-//		
-//		ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
-//		ICurioStacksHandler stacks = handler.getCurios().get(WItemTags.COSMETIC.getName().getPath());
-//		for(int i=0; i<stacks.getSlots(); i++)
-//			if(stacks.getStacks().getStackInSlot(i).isEmpty())
-//			{
-//				targetSlot = i;
-//				break;
-//			}
+		int targetSlot = -1;
+		ICuriosHelper helper = CuriosApi.getCuriosHelper();
+		if(!helper.getCuriosHandler(player).isPresent())
+			return ActionResultType.PASS;
 		
-//		if(targetSlot >= 0)
-//		{
-//			player.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
-//			player.rotationYaw = tile.getYaw();
-//			player.prevRotationYaw = tile.getYaw();
-//			
-//			stacks.getRenders().set(targetSlot, true);
-//			
-//			if(worldIn.isRemote)
-//				return ActionResultType.SUCCESS;
-//			else
-//			{
-//				stacks.getStacks().setStackInSlot(targetSlot, tile.getStack());
-//				
-//				tile.setItem(ItemStack.EMPTY);
-//				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-//				return ActionResultType.CONSUME;
-//			}
-//		}
-//		else
+		ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
+		ICurioStacksHandler stacks = handler.getCurios().get(WItemTags.COSMETIC.getName().getPath());
+		for(int i=0; i<stacks.getSlots(); i++)
+			if(stacks.getStacks().getStackInSlot(i).isEmpty())
+			{
+				targetSlot = i;
+				break;
+			}
+		
+		if(targetSlot >= 0)
+		{
+			player.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+			player.setYHeadRot(tile.getYaw());
+			
+			stacks.getRenders().set(targetSlot, true);
+			
+			if(worldIn.isClientSide)
+				return ActionResultType.SUCCESS;
+			else
+			{
+				stacks.getStacks().setStackInSlot(targetSlot, tile.getStack());
+				
+				tile.setItem(ItemStack.EMPTY);
+				worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+				return ActionResultType.CONSUME;
+			}
+		}
+		else
 			return ActionResultType.PASS;
 	}
 	

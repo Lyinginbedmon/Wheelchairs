@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "wheelchairs:oak_wheelchair",
+    "wheelchairs:spruce_wheelchair",
+    "wheelchairs:birch_wheelchair",
+    "wheelchairs:acacia_wheelchair",
+    "wheelchairs:jungle_wheelchair",
+    "wheelchairs:dark_oak_wheelchair",
+    "wheelchairs:crimson_wheelchair",
+    "wheelchairs:warped_wheelchair"
+  ]
+}

@@ -1,0 +1,2 @@
+Fix data generation not being called
+Fix rendering mixin not running
