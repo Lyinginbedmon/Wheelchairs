@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "wheelchairs:crimson_wheelchair"
+    ]
+  },
+  "criteria": {
+    "has_crimson_wheel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "wheelchairs:crimson_wheel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "wheelchairs:crimson_wheelchair"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_crimson_wheel",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "wheelchairs:jungle_wheel"
+    ]
+  },
+  "criteria": {
+    "has_jungle_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:jungle_slab"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "wheelchairs:jungle_wheel"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jungle_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -75,7 +75,7 @@ public class WRecipeProvider extends RecipeProvider
 	@Override
 	public String getName()
 	{
-		return "Various Equipment crafting recipes";
+		return Reference.ModInfo.MOD_NAME+" crafting recipes";
 	}
 	
 	static

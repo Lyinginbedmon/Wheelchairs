@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wheelchairs",
+  "pattern": [
+    " W ",
+    "EsE"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:red_wool"
+    },
+    "E": {
+      "item": "wheelchairs:acacia_wheel"
+    },
+    "s": {
+      "item": "minecraft:acacia_slab"
+    }
+  },
+  "result": {
+    "item": "wheelchairs:acacia_wheelchair"
+  }
+}

@@ -28,7 +28,6 @@ public class WItemTags extends ItemTagsProvider
 	public WItemTags(DataGenerator dataGenerator, @Nullable ExistingFileHelper existingFileHelper)
 	{
 		super(dataGenerator, new WBlockTags(dataGenerator, existingFileHelper), Reference.ModInfo.MOD_ID, existingFileHelper);
-		System.out.println("WItemTags instantiated");
 	}
 	
 	@Override
@@ -39,7 +38,6 @@ public class WItemTags extends ItemTagsProvider
 	
 	protected void addTags()
 	{
-		System.out.println("Generating item tags");
 		tag(COSMETIC).add(
 				WItems.OAK_WHEELCHAIR,
 				WItems.SPRUCE_WHEELCHAIR,
