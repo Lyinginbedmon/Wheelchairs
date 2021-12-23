@@ -61,7 +61,7 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
             
-            arg "-mixin.config=vareqp.mixins.json"
+            arg "-mixin.config=wheelchairs.mixins.json"
 
             mods {
                 wheelchairs {
@@ -85,7 +85,7 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
             
-            arg "-mixin.config=vareqp.mixins.json"
+            arg "-mixin.config=wheelchairs.mixins.json"
 
             mods {
                 wheelchairs {
@@ -111,7 +111,7 @@ minecraft {
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', 'wheelchairs', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            arg "-mixin.config=vareqp.mixins.json"
+            arg "-mixin.config=wheelchairs.mixins.json"
 
             mods {
                 wheelchairs {
@@ -147,27 +147,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.22'
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
-
-    // You may put jars on which you depend on in ./libs or you may define them like so..
-    // compile "some.group:artifact:version:classifier"
-    // compile "some.group:artifact:version"
-	
-    // Real examples
-    // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
-    // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
-	
-    // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
-    // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-	
-    // These dependencies get remapped to your current MCP mappings
-    // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-	
-    // For more info...
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
-    //compile fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.4.0:api")
-    //implementation fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.4.0")
+    
+    //compile 'org.spongepowered:mixin:0.8.5' // If uncommented, project import fails
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.6.7")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.6.7:api")
 }
@@ -182,7 +165,8 @@ jar {
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"lyinginbedmon",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConfigs": "wheelchairs.mixins.json"
         ])
     }
 }
