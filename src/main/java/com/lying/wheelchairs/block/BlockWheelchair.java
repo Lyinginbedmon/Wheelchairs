@@ -39,7 +39,7 @@ public class BlockWheelchair extends ContainerBlock
 	
 	public BlockWheelchair(AbstractBlock.Properties builder)
 	{
-		super(builder.noCollission().noOcclusion().noDrops());
+		super(builder.noCollission().noOcclusion().noDrops().strength(0.5F));
 	}
 	
 	public TileEntity newBlockEntity(IBlockReader p_196283_1_)
@@ -54,17 +54,17 @@ public class BlockWheelchair extends ContainerBlock
 	
 	public boolean isTransparent(BlockState state){ return true; }
 	
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 	{
 		TileEntityWheelchair tile = (TileEntityWheelchair)worldIn.getBlockEntity(pos);
 		if(tile == null || tile.getStack().isEmpty() || !(tile.getStack().getItem() instanceof ItemWheelchair))
 			return ActionResultType.PASS;
 		
-		int targetSlot = -1;
 		ICuriosHelper helper = CuriosApi.getCuriosHelper();
 		if(!helper.getCuriosHandler(player).isPresent())
 			return ActionResultType.PASS;
 		
+		int targetSlot = -1;
 		ICuriosItemHandler handler = helper.getCuriosHandler(player).orElse(null);
 		ICurioStacksHandler stacks = handler.getCurios().get(WItemTags.COSMETIC.getName().getPath());
 		for(int i=0; i<stacks.getSlots(); i++)
@@ -77,6 +77,7 @@ public class BlockWheelchair extends ContainerBlock
 		if(targetSlot >= 0)
 		{
 			player.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+			player.setYBodyRot(tile.getYaw());
 			player.setYHeadRot(tile.getYaw());
 			
 			stacks.getRenders().set(targetSlot, true);
@@ -102,7 +103,7 @@ public class BlockWheelchair extends ContainerBlock
 		tile.setItemAndYaw(stack.copy(), placer.yRot + 180F);
 	}
 	
-	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+	public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		TileEntity tile = worldIn.getBlockEntity(pos);
 		if(tile != null && tile.getType() == WTileEntities.WHEELCHAIR)

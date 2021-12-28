@@ -24,7 +24,7 @@ public class WBlocks
 	
 	public static Block register(String nameIn, Block blockIn)
 	{
-		blockIn.setRegistryName(Reference.ModInfo.MOD_PREFIX+nameIn);
+		blockIn.setRegistryName(Reference.ModInfo.MOD_ID, nameIn);
 		BLOCKS.add(blockIn);
 		return blockIn;
 	}

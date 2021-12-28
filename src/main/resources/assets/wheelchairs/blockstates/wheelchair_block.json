@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "minecraft:block/barrier"
+      "model": "wheelchairs:block/wheelchair_block"
     }
   }
 }

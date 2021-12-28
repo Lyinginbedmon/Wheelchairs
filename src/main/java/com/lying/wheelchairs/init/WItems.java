@@ -22,6 +22,7 @@ public class WItems
 	private static final List<Item> ITEMS = Lists.newArrayList();
 	
 	public static final List<Item> DYEABLES = Lists.newArrayList();
+	public static final List<Item> WHEELCHAIRS = Lists.newArrayList();
 	
 	// Items
 	public static final Item OAK_WHEELCHAIR		= register("oak_wheelchair", new ItemWheelchair(new Item.Properties(), WoodType.OAK));
@@ -48,6 +49,8 @@ public class WItems
 		
 		if(itemIn instanceof IDyeableArmorItem)
 			DYEABLES.add(itemIn);
+		if(itemIn instanceof ItemWheelchair)
+			WHEELCHAIRS.add(itemIn);
 		
 		return itemIn;
 	}

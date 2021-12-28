@@ -148,7 +148,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.22'
     
-    //compile 'org.spongepowered:mixin:0.8.5' // If uncommented, project import fails
+    implementation 'org.spongepowered:mixin:0.8.5' // If uncommented, project import fails
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.6.7")

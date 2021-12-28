@@ -23,7 +23,7 @@ public class BipedArmorLayerMixin
 	private PlayerEntity renderingPlayer = null;
 	
 	@SuppressWarnings("rawtypes")
-	@Inject(method = "func_241739_a_(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/inventory/EquipmentSlotType;ILnet/minecraft/client/renderer/entity/model/BipedModel;)V", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "renderArmorPiece(Lcom/mojang/blaze3d/matrix/MatrixStack;Lnet/minecraft/client/renderer/IRenderTypeBuffer;Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/inventory/EquipmentSlotType;ILnet/minecraft/client/renderer/entity/model/BipedModel;)V", at = @At("HEAD"), cancellable = true)
 	public void renderArmourInSlot(MatrixStack p_241739_1_, IRenderTypeBuffer p_241739_2_, LivingEntity entityIn, EquipmentSlotType slotIn, int p_241739_5_, BipedModel p_241739_6_, final CallbackInfo ci)
 	{
 		if(entityIn.getType() == EntityType.PLAYER)
@@ -33,7 +33,7 @@ public class BipedArmorLayerMixin
 	}
 	
 	@SuppressWarnings("rawtypes")
-	@Inject(method = "setModelSlotVisible(Lnet/minecraft/client/renderer/entity/model/BipedModel;Lnet/minecraft/inventory/EquipmentSlotType;)V", at = @At("RETURN"))
+	@Inject(method = "setPartVisibility(Lnet/minecraft/client/renderer/entity/model/BipedModel;Lnet/minecraft/inventory/EquipmentSlotType;)V", at = @At("RETURN"))
 	public void setModelSlotVisible(BipedModel modelIn, EquipmentSlotType slotIn, final CallbackInfo ci)
 	{
 		if(renderingPlayer != null)

@@ -7,7 +7,7 @@ public class ItemWheel extends Item
 {
 	public ItemWheel(ItemTier tier, Properties properties)
 	{
-		super(properties.tab(WItemGroup.WHEELCHAIRS).durability(tier.getUses()));
+		super(properties.tab(WItemGroup.WHEELCHAIRS));
 	}
 	
 	public int getItemEnchantability(){ return 0; }

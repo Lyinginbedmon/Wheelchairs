@@ -10,13 +10,13 @@
       "item": "minecraft:red_wool"
     },
     "E": {
-      "item": "wheelchairs:warped_wheel"
+      "item": "wheelchairs:dark_oak_wheel"
     },
     "s": {
-      "item": "minecraft:warped_slab"
+      "item": "minecraft:dark_oak_slab"
     }
   },
   "result": {
-    "item": "wheelchairs:warped_wheelchair"
+    "item": "wheelchairs:dark_oak_wheelchair"
   }
 }

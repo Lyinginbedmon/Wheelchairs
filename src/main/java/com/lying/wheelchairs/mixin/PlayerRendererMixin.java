@@ -18,7 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @Mixin(PlayerRenderer.class)
 public class PlayerRendererMixin
 {
-	@Inject(method = "setModelVisibilities(Lnet/minecraft/client/entity/player/AbstractClientPlayerEntity;)V", at = @At("RETURN"), cancellable = true)
+	@Inject(method = "setModelProperties(Lnet/minecraft/client/entity/player/AbstractClientPlayerEntity;)V", at = @At("RETURN"), cancellable = true)
 	private void setModelVisibilities(AbstractClientPlayerEntity player, final CallbackInfo ci)
 	{
 		PlayerModel<AbstractClientPlayerEntity> model = ((PlayerRenderer)(Object)this).getModel();

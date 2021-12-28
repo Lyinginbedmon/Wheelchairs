@@ -26,30 +26,30 @@ import top.theillusivec4.curios.api.type.util.ICuriosHelper;
 public class BipedModelMixin extends EntityModelMixin
 {
 	@Shadow
-	public ModelRenderer bipedLeftLeg;
+	public ModelRenderer leftLeg;
 	@Shadow
-	public ModelRenderer bipedRightLeg;
+	public ModelRenderer rightLeg;
 	@Shadow
-	public float swimAnimation;
+	public float swimAmount;
 	
-	@Inject(method = "setLivingAnimations(Lnet/minecraft/entity/LivingEntity;FFF)V", at = @At("HEAD"))
+	@Inject(method = "prepareMobModel(Lnet/minecraft/entity/LivingEntity;FFF)V", at = @At("HEAD"))
 	public void setLivingAnimations(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick, final CallbackInfo ci)
 	{
-		isSitting = isSitting || shouldForceSit(entityIn);
+		riding = riding || shouldForceSit(entityIn);
 	}
 	
-	@Inject(method = "setRotationAngles(Lnet/minecraft/entity/LivingEntity;FFFFF)V", at = @At("RETURN"))
+	@Inject(method = "setupAnim(Lnet/minecraft/entity/LivingEntity;FFFFF)V", at = @At("RETURN"))
 	public void setRotationAngles(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, final CallbackInfo ci)
 	{
 		// Poses can overrule the sitting pose, so we put it back here
-		if(shouldForceSit(entityIn) && swimAnimation > 0F)
+		if(shouldForceSit(entityIn) && swimAmount > 0F)
 		{
-			this.bipedRightLeg.xRot = -1.4137167F;
-			this.bipedRightLeg.yRot = ((float)Math.PI / 10F);
-			this.bipedRightLeg.zRot = 0.07853982F;
-			this.bipedLeftLeg.xRot = -1.4137167F;
-			this.bipedLeftLeg.yRot = (-(float)Math.PI / 10F);
-			this.bipedLeftLeg.zRot = -0.07853982F;
+			this.rightLeg.xRot = -1.4137167F;
+			this.rightLeg.yRot = ((float)Math.PI / 10F);
+			this.rightLeg.zRot = 0.07853982F;
+			this.leftLeg.xRot = -1.4137167F;
+			this.leftLeg.yRot = (-(float)Math.PI / 10F);
+			this.leftLeg.zRot = -0.07853982F;
 		}
 	}
 	

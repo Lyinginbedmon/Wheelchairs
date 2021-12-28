@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "wheelchairs:oak_wheelchair"
+    ]
+  },
+  "criteria": {
+    "has_oak_wheel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "wheelchairs:oak_wheel"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "wheelchairs:oak_wheelchair"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_oak_wheel",
+      "has_the_recipe"
+    ]
+  ]
+}

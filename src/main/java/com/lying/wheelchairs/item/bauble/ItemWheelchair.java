@@ -10,6 +10,7 @@ import com.lying.wheelchairs.init.WBlocks;
 import com.lying.wheelchairs.init.WItems;
 import com.lying.wheelchairs.item.WItemGroup;
 import com.lying.wheelchairs.reference.Reference;
+import com.lying.wheelchairs.tileentity.TileEntityWheelchair;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
@@ -70,6 +71,8 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 	public static final UUID MODIFIER_UUID = UUID.fromString("d26831e4-f088-435f-b23b-e43525f5e0f2");
 	private final WoodType woodType;
 	
+	public static int DEFAULT_COLOR = DyeColor.RED.getColorValue();
+	
 	public ItemWheelchair(Properties properties, WoodType wheelIn)
 	{
 		super(properties.stacksTo(1).tab(WItemGroup.WHEELCHAIRS));
@@ -83,17 +86,15 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 	
 	public boolean canRender(String identifier, int index, LivingEntity living, ItemStack stack){ return !living.isInvisible(); }
 	
-	public boolean hasColor(ItemStack stack)
+	public boolean hasCustomColor(ItemStack stack)
 	{
 		return stack.getTagElement("display") != null && stack.getTagElement("display").contains("color", 99);
 	}
 	
 	public int getColor(ItemStack stack)
 	{
-		return hasColor(stack) ? stack.getTagElement("display").getInt("color") : getDefaultColor();
+		return hasCustomColor(stack) ? stack.getTagElement("display").getInt("color") : -1;
 	}
-	
-	public int getDefaultColor(){ return DyeColor.RED.getColorValue(); }
 	
 	public ActionResultType useOn(ItemUseContext context)
 	{
@@ -118,24 +119,27 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 				return ActionResultType.FAIL;
 			else
 			{
-				BlockPos blockpos = context.getClickedPos();
+				BlockPos pos = context.getClickedPos();
 				World world = context.getLevel();
-				PlayerEntity playerentity = context.getPlayer();
-				ItemStack itemstack = context.getItemInHand();
-				BlockState blockstate1 = world.getBlockState(blockpos);
-				Block block = blockstate1.getBlock();
-				if(block == blockstate.getBlock())
+				PlayerEntity player = context.getPlayer();
+				ItemStack stack = context.getItemInHand();
+				BlockState currentState = world.getBlockState(pos);
+				Block currentBlock = currentState.getBlock();
+				if(currentBlock == blockstate.getBlock())
 				{
-					block.setPlacedBy(world, blockpos, blockstate1, playerentity, itemstack);
-					if(playerentity instanceof ServerPlayerEntity)
-						CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)playerentity, blockpos, itemstack);
+					currentBlock.setPlacedBy(world, pos, currentState, player, stack);
+					if(player instanceof ServerPlayerEntity)
+						CriteriaTriggers.PLACED_BLOCK.trigger((ServerPlayerEntity)player, pos, stack);
 				}
-				SoundType soundtype = blockstate1.getSoundType(world, blockpos, context.getPlayer());
+				SoundType soundtype = currentState.getSoundType(world, pos, context.getPlayer());
 				
-				SoundEvent placeSound = blockstate1.getSoundType(world, blockpos, playerentity).getPlaceSound();
-				world.playSound(playerentity, blockpos, placeSound, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-				if(playerentity == null || !playerentity.isCreative())
-					itemstack.shrink(1);
+				SoundEvent placeSound = currentState.getSoundType(world, pos, player).getPlaceSound();
+				world.playSound(player, pos, placeSound, SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+				
+				TileEntityWheelchair tile = (TileEntityWheelchair)world.getBlockEntity(pos);
+				if(tile != null)
+					tile.setItemAndYaw(stack.split(1), context.getRotation() + 180F);
+				
 				return ActionResultType.sidedSuccess(world.isClientSide);
 			}
 		}
@@ -232,7 +236,7 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 		model.setupAnim(living, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 		model.renderToBuffer(matrixStackIn, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
 		
-        int i = getColor(stack);
+        int i = hasCustomColor(stack) ? getColor(stack) : DEFAULT_COLOR;
         float r = (float)(i >> 16 & 255) / 255.0F;
         float g = (float)(i >> 8 & 255) / 255.0F;
         float b = (float)(i & 255) / 255.0F;
@@ -250,7 +254,7 @@ public class ItemWheelchair extends ItemBaublePersistent implements IDyeableArmo
 		IVertexBuilder vertexBuilder = ItemRenderer.getFoilBuffer(renderTypeBuffer, model.renderType(getTexture(stack)), false, stack.isEnchanted());
 		model.renderToBuffer(matrixStackIn, vertexBuilder, light, OverlayTexture.NO_OVERLAY, 1F, 1F, 1F, 1F);
 		
-        int i = getColor(stack);
+        int i = hasCustomColor(stack) ? getColor(stack) : DEFAULT_COLOR;
         float r = (float)(i >> 16 & 255) / 255.0F;
         float g = (float)(i >> 8 & 255) / 255.0F;
         float b = (float)(i & 255) / 255.0F;

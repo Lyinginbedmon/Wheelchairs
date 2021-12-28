@@ -9,5 +9,5 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 public class EntityModelMixin
 {
 	@Shadow
-	public boolean isSitting;
+	public boolean riding;
 }
